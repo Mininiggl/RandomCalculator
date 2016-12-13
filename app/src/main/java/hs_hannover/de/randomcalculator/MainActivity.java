@@ -5,10 +5,14 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.Random;
+import java.util.StringTokenizer;
 
 public class MainActivity extends Activity {
     private CountDownTimer countDownTimer;
@@ -17,6 +21,7 @@ public class MainActivity extends Activity {
     private int Summe;
     private boolean RichtigeSumme;
     private int Punkte;
+    private int level;
     TextView textSummandA;
     TextView textSummandB;
     TextView textSumme;
@@ -39,7 +44,24 @@ public class MainActivity extends Activity {
         textPunkte = (TextView) findViewById(R.id.textPunkte);
         btnRichtig = (Button) findViewById(R.id.btnRichtig);
         btnFalsch = (Button) findViewById(R.id.btnFalsch);
+        Spinner spinner = (Spinner) findViewById(R.id.spinDifficulty);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.spinDifficulty,android.R.layout.simple_spinner_dropdown_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
         zufallGenerier();
+        ((Spinner)findViewById(R.id.spinDifficulty)).setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                level = position;
+                Log.d("Level",String.valueOf(position));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
         ((Button) findViewById(R.id.btnRichtig)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,8 +89,9 @@ public class MainActivity extends Activity {
             countDownTimer.cancel();
             countDownTimer = new MyCountDownTimer(STARTTIME*1000, (long)(INTERVAL*1000));
             countDownTimer.start();
-            zufallZahlen(0);
+            zufallZahlen(level);
         }else{
+            countDownTimer.cancel();
             btnRichtig.setEnabled(false);
             btnFalsch.setEnabled(false);
         }
@@ -90,7 +113,7 @@ public class MainActivity extends Activity {
             }while (Summe == SummandA+SummandB);
         }
 
-
+        Log.d("RichtigeSumme", String.valueOf(RichtigeSumme));
         textSumme.setText(String.valueOf(Summe));
     }
     public class MyCountDownTimer extends CountDownTimer{

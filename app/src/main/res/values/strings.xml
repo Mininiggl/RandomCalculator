@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">RandomCalculator</string>
+    <string-array name="spinDifficulty">
+        <item>Normal</item>
+        <item>Schwer</item>
+        <item>Profi</item>
+        <item>Meister</item>
+    </string-array>
 </resources>
