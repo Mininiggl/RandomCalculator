@@ -6,4 +6,7 @@
         <item>Profi</item>
         <item>Meister</item>
     </string-array>
+    <string name="start">Start</string>
+    <string name="countdown">Zeit</string>
+    <string name="points">Punktzahl</string>
 </resources>
