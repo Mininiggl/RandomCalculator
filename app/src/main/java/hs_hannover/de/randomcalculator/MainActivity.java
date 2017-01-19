@@ -16,9 +16,11 @@ import android.widget.Toast;
 
 import java.util.Random;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
 
 public class MainActivity extends Activity {
     private CountDownTimer countDownTimer;
+    private long TimerValue;
     private int SummandA;
     private int SummandB;
     private int Summe;
@@ -151,6 +153,7 @@ public class MainActivity extends Activity {
             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(500);
             Toast.makeText(getApplicationContext(), "Zeit abgelaufen - GAME OVER", Toast.LENGTH_SHORT).show();
+            TimerValue = 0;
             btnRichtig.setEnabled(false);
             btnFalsch.setEnabled(false);
             btnStart.setEnabled(true);
@@ -159,9 +162,56 @@ public class MainActivity extends Activity {
 
         @Override
         public void onTick(long millisUntilFinished) {
+            TimerValue = millisUntilFinished;
+            Log.d("timerstate", String.valueOf(TimerValue));
             textTimer.setText(String.valueOf(millisUntilFinished/100));
         }
     }
 
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        Punkte = savedInstanceState.getInt("punktzahl");
+        textPunkte.setText(String.valueOf(Punkte));
+        SummandA = savedInstanceState.getInt("SummandA");
+        textSummandA.setText(String.valueOf(SummandA));
+        SummandB = savedInstanceState.getInt("SummandB");
+        textSummandB.setText(String.valueOf(SummandB));
+        Summe = savedInstanceState.getInt("Summe");
+        textSumme.setText(String.valueOf(Summe));
+        RichtigeSumme= savedInstanceState.getBoolean("richtigeSumme");
+        btnRichtig.setEnabled(savedInstanceState.getBoolean("btnRichtig"));
+        btnFalsch.setEnabled(savedInstanceState.getBoolean("btnFalsch"));
+        btnStart.setEnabled(savedInstanceState.getBoolean("btnStart"));
+        level = savedInstanceState.getInt("Level");
+        long timerstate = savedInstanceState.getLong("timerstate");
+        if(timerstate != 0) {
+            countDownTimer = new MyCountDownTimer(timerstate, (long) (INTERVAL * 1000));
+            countDownTimer.start();
+        }
+        spinner.setSelection(level);
+        spinner.setEnabled(savedInstanceState.getBoolean("spinnerEnabled"));
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("punktzahl", Punkte);
+        outState.putInt("SummandA",SummandA);
+        outState.putInt("SummandB",SummandB);
+        outState.putInt("Summe",Summe);
+        outState.putBoolean("richtigeSumme",RichtigeSumme);
+        outState.putBoolean("btnRichtig", btnRichtig.isEnabled());
+        outState.putBoolean("btnFalsch", btnFalsch.isEnabled());
+        outState.putBoolean("btnStart", btnStart.isEnabled());
+        outState.putInt("Level", level);
+        if(TimerValue != 0){
+            countDownTimer.cancel();
+        }
+
+        outState.putLong("timerstate", TimerValue);
+        Log.d("timerstate", String.valueOf(TimerValue));
+        outState.putBoolean("spinnerEnabled", spinner.isEnabled());
+    }
 }
 
