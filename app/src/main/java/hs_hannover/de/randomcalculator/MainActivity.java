@@ -94,6 +94,8 @@ public class MainActivity extends Activity {
     }
 
     public void zufallGenerier(){
+        Punkte = 0;
+        textPunkte.setText(String.valueOf(Punkte));
         zufallZahlen(level);
         countDownTimer = new MyCountDownTimer(STARTTIME*1000, (long)(INTERVAL*1000));
         countDownTimer.start();
@@ -145,7 +147,7 @@ public class MainActivity extends Activity {
         @Override
         public void onFinish() {
             //long [] pattern = {250, 250, 250, 250};
-            textTimer.setText("Timer zuende");
+            textTimer.setText("Timer abgelaufen");
             Vibrator vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
             vibrator.vibrate(500);
             Toast.makeText(getApplicationContext(), "Zeit abgelaufen - GAME OVER", Toast.LENGTH_SHORT).show();

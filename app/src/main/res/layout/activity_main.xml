@@ -8,7 +8,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="hs_hannover.de.randomcalculator.MainActivity">
+    tools:context="hs_hannover.de.randomcalculator.MainActivity"
+    android:background="@color/colorPrimary">
 
     <LinearLayout
         android:orientation="vertical"
@@ -27,7 +28,8 @@
                 android:id="@+id/textSummandA"
                 android:layout_weight="1"
                 android:textSize="30sp"
-                android:textStyle="normal|bold" />
+                android:textStyle="normal|bold"
+                android:textColor="@android:color/holo_blue_dark" />
 
             <TextView
                 android:text="+"
@@ -45,7 +47,8 @@
                 android:id="@+id/textSummandB"
                 android:layout_weight="1"
                 android:textSize="30sp"
-                android:textStyle="normal|bold" />
+                android:textStyle="normal|bold"
+                android:textColor="@android:color/holo_blue_dark" />
 
             <TextView
                 android:text="="
@@ -63,7 +66,8 @@
                 android:id="@+id/textSumme"
                 android:layout_weight="1"
                 android:textSize="30sp"
-                android:textStyle="normal|bold" />
+                android:textStyle="normal|bold"
+                android:textColor="@android:color/holo_blue_dark" />
 
         </LinearLayout>
 
@@ -100,14 +104,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnRichtig"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textColor="@android:color/holo_green_dark" />
 
             <Button
                 android:text="Falsch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnFalsch"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textColor="@android:color/holo_red_dark" />
         </LinearLayout>
 
         <LinearLayout
@@ -120,14 +126,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textView3"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="18sp" />
 
             <TextView
                 android:text="0"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/textPunkte"
-                android:layout_weight="1" />
+                android:layout_weight="1"
+                android:textSize="18sp" />
 
         </LinearLayout>
 
@@ -140,7 +148,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/spinDifficulty"
-                android:spinnerMode="dropdown"
                 android:layout_weight="1" />
         </LinearLayout>
 
